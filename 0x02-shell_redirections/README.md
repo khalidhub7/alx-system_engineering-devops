@@ -1,1 +1,1 @@
-my redmi : task i/o
+0x02-shell_redirections
