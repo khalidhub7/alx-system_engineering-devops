@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#print "Best School" 10 time using while
+#and print some 'words' in special 'iter'
+i=0
+while (( i < 10 ))
+do
+        ((i++))
+        if (( i == 4))
+        then
+                echo "bad luck"
+        elif (( i == 8))
+        then
+                echo "good luck"
+        else
+                echo "Best School"
+        fi
+done
