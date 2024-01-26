@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # print "Best School" 10 time using while
 # and print hi between iter 9 & iter 10
+
 i=0
+
 while (( i < 10 ))
 do
         echo "Best School"
