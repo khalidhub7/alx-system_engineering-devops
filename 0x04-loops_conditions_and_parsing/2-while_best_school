@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# print Best School 10 time using while
 i=0
 while ((i < 10))
 do
