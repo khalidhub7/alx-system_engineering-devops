@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#loop in current directory
+#if i = "." wla "@" write after text after @
+for i in *
+do
+        if [[ "$i" == *-* ]]
+        then
+                my_str=${i##*-}
+                echo "$my_str"
+        fi
+done
