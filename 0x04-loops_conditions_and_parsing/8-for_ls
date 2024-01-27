@@ -7,5 +7,7 @@ do
         then
                 my_str=${i##*-}
                 echo "$my_str"
+        else
+                echo "$i"
         fi
 done
