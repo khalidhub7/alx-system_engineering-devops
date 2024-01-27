@@ -1,0 +1,140 @@
+#!/usr/bin/env bash
+#display hours from 0 to 12
+#display minutes from 1 to 59
+i=1
+j=0
+#x=0
+while (( j < 13 ))
+do
+        case $j in
+                0)
+                        echo "Hour: 0"
+                        ((j++))
+                        while (( i < 60 ))
+                        do
+                                echo "$i"
+                                ((i++))
+                        done
+                        ;;
+                1)
+                        echo "Hour: 1"
+                        ((j++))
+                        i=1
+                        while (( i < 60 ))
+                        do
+                                echo "$i"
+                                ((i++))
+                        done
+                        ;;
+                2)
+                        echo "Hour: 2"
+                        ((j++))
+                        i=1
+                        while (( i < 60 ))
+                        do
+                                echo "$i"
+                                ((i++))
+                        done
+                        ;;
+		3)
+                        echo "Hour: 3"
+                        ((j++))
+                        i=1
+                        while (( i < 60 ))
+                        do
+                                echo "$i"
+                                ((i++))
+                        done
+                        ;;
+                4)
+                        echo "Hour: 4"
+                        ((j++))
+                        i=1
+                        while (( i < 60 ))
+                        do
+                                echo "$i"
+                                ((i++))
+                        done
+                        ;;
+                5)
+                        echo "Hour: 5"
+                        ((j++))
+                        i=1
+                        while (( i < 60 ))
+                        do
+                                echo "$i"
+                                ((i++))
+                        done
+                        ;;
+                6)
+                        echo "Hour: 6"
+                        ((j++))
+                        i=1
+                        while (( i < 60 ))
+                        do
+                                echo "$i"
+                                ((i++))
+                        done
+                        ;;
+		7)
+                        echo "Hour: 7"
+                        ((j++))
+                        i=1
+                        while (( i < 60 ))
+                        do
+                                echo "$i"
+                                ((i++))
+                        done
+                        ;;
+                8)
+                        echo "Hour: 8"
+                        ((j++))
+                        i=1
+                        while (( i < 60 ))
+                        do
+                                echo "$i"
+                                ((i++))
+                        done
+                        ;;
+                9)
+                        echo "Hour: 9"
+                        ((j++))
+                        i=1
+                        while (( i < 60 ))
+                        do
+                                echo "$i"
+                                ((i++))
+                        done
+                        ;;
+                10)
+                        echo "Hour: 10"
+                        ((j++))
+                        i=1
+                        while (( i < 60 ))
+                        do
+                                echo "$i"
+                                ((i++))
+                        done
+                        ;;
+		11)
+                        echo "Hour: 11"
+                        ((j++))
+                        i=1
+                        while (( i < 60 ))
+                        do
+                                echo "$i"
+                                ((i++))
+                        done
+                        ;;
+                12)
+                        echo "Hour: 12"
+                        ((j++))
+                        i=1
+                        while (( i < 60 ))
+                        do
+                                echo "$i"
+                                ((i++))
+                        done
+                        ;;
+        esac
+done
