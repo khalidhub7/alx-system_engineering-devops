@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 # display list of currently running processes
-pstree -aup
+
+ps -u
