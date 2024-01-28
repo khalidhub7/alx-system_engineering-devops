@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#another way to stop '4-to_infinity_and_beyond'
+#without ctrl+c
+
+pid_of_running_script=$(pgrep -f 4-to_infinity_and_beyond)
+kill -2 $pid_of_running_script
