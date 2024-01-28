@@ -2,4 +2,4 @@
 # display list of currently running processes
 # with some options
 
-ps -auxf
+ps -xfau
