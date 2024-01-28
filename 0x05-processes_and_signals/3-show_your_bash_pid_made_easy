@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# print bash pid + "bash"
-# shellcheck disable=SC2009
+# print bash pid + "process name"
 
-ps aufx | grep bash | grep -v grep | awk '{print $2, "bash"}'
+pgrep bash -l
