@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#display content of file /etc/passwd
+#username, id, path
+#using while
+
+while IFS= read -r line
+do
+    if [[ "$line" == *:* ]]
+    then
+        username=$(echo "$line" | cut -d: -f1)
+        id=$(echo "$line" | cut -d: -f3)
+        path=$(echo "$line" | cut -d: -f6)
+
+        echo -n "$username"
+        echo -n ":"
+        echo -n "$id"
+        echo -n ":"
+        echo "$path"
+    fi
+done < /etc/passwd
