@@ -2,5 +2,4 @@
 #another way to stop '4-to_infinity_and_beyond'
 #without ctrl+c
 
-pid_of_running_script=$(pgrep -f 4-to_infinity_and_beyond)
-kill $pid_of_running_script
+kill pgrep -f 4-to_infinity_and_beyond
