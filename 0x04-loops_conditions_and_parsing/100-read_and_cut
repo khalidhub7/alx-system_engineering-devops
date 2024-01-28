@@ -18,20 +18,3 @@ do
         echo "$path"
     fi
 done < /etc/passwd
-
-"""using awk """
-"""while IFS= read -r line
-do
-    if [[ "$line" == *:* ]]
-    then
-        username=$(echo "$line" | awk -F: '{print $1}')
-        id=$(echo "$line" | awk -F: '{print $3}')
-        path=$(echo "$line" | awk -F: '{print $6}')
-
-        echo -n "$username"
-        echo -n ":"
-        echo -n "$id"
-        echo -n ":"
-        echo "$path"
-    fi
-done < /etc/passwd"""
