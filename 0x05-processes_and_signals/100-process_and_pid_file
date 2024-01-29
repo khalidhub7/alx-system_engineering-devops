@@ -2,7 +2,7 @@
 #   follow task Requirements
 
 
-echo "$(pgrep -f /var/run/myscript.pid)" > /var/run/myscript.pid
+echo "$$" > /var/run/myscript.pid
 trap 'echo "I hate the kill command"' SIGTERM
 trap 'echo "Y U no love me?!"' SIGINT
 while true
