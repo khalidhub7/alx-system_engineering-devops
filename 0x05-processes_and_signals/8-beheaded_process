@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bas
 #kill the process 7-highlander
 
-pid=$(pgrep -f 7-highlander)
-renice -2 -p $pid
+pkill -f -9 7-highlander
