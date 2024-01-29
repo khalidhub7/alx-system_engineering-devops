@@ -1,1 +1,5 @@
-gg
+#!/usr/bin/env bash
+#another way to stop '4-to_infinity_and_beyond'
+#without use kill or killall
+
+renice -2 -p "$(pgrep -f 4-to_infinity_and_beyond)"
