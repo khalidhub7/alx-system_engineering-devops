@@ -2,9 +2,4 @@
 #another way to stop '4-to_infinity_and_beyond'
 #without use kill or killall
 
-pid="$(pgrep -f 4-to_infinity_and_beyond)"
-
-if [ -n "$pid" ]
-then
-        sudo renice -2 -p "$pid"
-fi
+pkill 4-to_infinity_and_beyond
