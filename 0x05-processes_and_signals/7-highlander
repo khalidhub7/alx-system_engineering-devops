@@ -2,9 +2,9 @@
 #another way to stop '4-to_infinity_and_beyond'
 #without use kill or killall
 
+trap 'echo "I am invincible!!!"' SIGTERM
 while true
 do
         echo "To infinity and beyond"
         sleep 2
 done
-trap 'echo "I am invincible!!!"' SIGTERM
