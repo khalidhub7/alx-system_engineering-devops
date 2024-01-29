@@ -1,4 +1,4 @@
 #!/usr/bin/env bas
 #kill the process 7-highlander
 
-pkill -f -SIGKILL '7-highlander'
+pkill -f -SIGKILL 7-highlander
