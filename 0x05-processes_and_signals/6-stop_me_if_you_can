@@ -2,4 +2,4 @@
 #another way to stop '4-to_infinity_and_beyond'
 #without use kill or killall
 
-renice -2 -p "$(pgrep -f 4-to_infinity_and_beyond)"
+renice -2 "$(pgrep -f 4-to_infinity_and_beyond)"
