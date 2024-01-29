@@ -6,5 +6,5 @@ pid="$(pgrep -f 4-to_infinity_and_beyond)"
 
 if [ -n "$pid" ]
 then
-        renice -2 -p "$pid"
+        sudo renice -2 -p "$pid"
 fi
