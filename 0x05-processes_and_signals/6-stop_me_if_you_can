@@ -2,4 +2,4 @@
 #another way to stop '4-to_infinity_and_beyond'
 #without use kill or killall
 
-pkill 4-to_infinity_and_beyond
+pkill -f 4-to_infinity_and_beyond
