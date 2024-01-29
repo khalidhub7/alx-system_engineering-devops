@@ -1,6 +1,6 @@
 /*
  * File: 102-zombie.c
- * Auth: Brennan D Baraban && khalid log hhh
+ * Auth: Brennan D Baraban && khalid log __hhhhh
  */
 
 #include <stdio.h>
@@ -43,8 +43,9 @@ int main(void)
 			count++;
 		}
 		else
-			exit(0)
-		}
+			exit(0);
+	}
+
 	infinite_while();
 
 	return (EXIT_SUCCESS);
