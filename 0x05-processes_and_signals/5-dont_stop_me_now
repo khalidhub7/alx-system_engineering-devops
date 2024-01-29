@@ -2,4 +2,4 @@
 #another way to stop '4-to_infinity_and_beyond'
 #without ctrl+c
 
-kill -2 "$(pgrep -f 4-to_infinity_and_beyond)"
+kill "$(pgrep -f 4-to_infinity_and_beyond)"
