@@ -2,9 +2,9 @@
 # Display listening ports with PID and program name
 
 netstat -nlut | grep LISTEN | awk '{print $4, " ", $7}' | while read line
-do
-	pid=$(echo $line | awk '{print $4}' | cut -d/ -f1)
-	program_name=$(ps -p $pid)
+doi
+	#pid=$(echo $line | awk '{print $4}' | cut -d/ -f1)
+	#program_name=$(ps -p $pid)
 	#program=$(ps -p $pid -o comm= 2>/dev/null)        this line if pid not found 
-	echo "$line $program_name"
+	echo "$line $(ps -p $(echo $line | awk '{print $4}' | cut -d/ -f1))"
 done
