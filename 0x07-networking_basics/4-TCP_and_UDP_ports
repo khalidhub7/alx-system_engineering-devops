@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Display listening ports with PID and program name
-netstat -nlut | grep LISTEN | awk '{print $4, " " $7}' | while read line
+netstat -nlut | grep LISTEN | awk '{print $4, " "$7}' | while read line
 do
 	pid=$(echo $line | awk '{print $4}' | cut -d/ -f1)
 	program=$(ps -p $pid -o comm= 2>/dev/null)
