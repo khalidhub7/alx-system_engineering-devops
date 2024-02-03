@@ -2,4 +2,4 @@
 # Displays listening ports Includes listening sockets
 # display PID & name of the program to which each socket
 
-netstat -l --program
+netstat -l -p
