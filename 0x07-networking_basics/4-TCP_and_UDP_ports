@@ -6,5 +6,5 @@ do
 	#pid=$(echo $line | awk '{print $4}' | cut -d/ -f1)
 	#program_name=$(ps -p $pid)
 	#program=$(ps -p $pid -o comm= 2>/dev/null)        this line if pid not found 
-	echo "$line $(ps -p $(echo $line | awk '{print $4}' | cut -d/ -f1))" 
+	echo " $(ps -p $(echo $line | awk '{print $4}' | cut -d/ -f1))" 
 done
