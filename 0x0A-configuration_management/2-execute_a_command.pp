@@ -1,4 +1,4 @@
 #Using Puppet, create a manifest
-exec {
-command pkill killmenow
+exec { 'killmenow':
+  command => 'pkill killmenow',
 }
