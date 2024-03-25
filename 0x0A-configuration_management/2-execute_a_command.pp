@@ -1,5 +1,4 @@
-#Execute a bash command
-
+#Execute command
 exec {
   'pkill':
   command => 'pkill killmenow',
