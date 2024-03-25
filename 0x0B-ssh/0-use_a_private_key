@@ -3,8 +3,5 @@
 user="ubuntu"
 private_key="~/.ssh/school"
 server="192.168.1.100"
-
 ssh -i "$private_key" $user@$server
-
-
 # ssh -i ~/.ssh/school ubuntu@192.168.1.100 
