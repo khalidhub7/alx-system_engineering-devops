@@ -3,5 +3,6 @@
 user="ubuntu"
 private_key="~/.ssh/school"
 server="192.168.1.100"
+# SSH connection using single-character flags
 ssh -i "$private_key" $user@$server
 # ssh -i ~/.ssh/school ubuntu@192.168.1.100 
