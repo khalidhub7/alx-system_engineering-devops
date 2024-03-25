@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# define variables
+# connecting to a server using private key
 user="ubuntu"
-private_key="~/.ssh/school"
-server="192.168.1.100"
+privateKeyPath="~/.ssh/school"
+ip="52.86.89.214"
 
-ssh -i "$private_key" $user@$server
+ssh -i "$privateKeyPath" $user@$ip
+
+# ssh -i ~/.ssh/school ubuntu@52.86.89.214 that's it
