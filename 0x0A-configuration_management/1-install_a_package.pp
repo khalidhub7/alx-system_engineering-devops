@@ -1,4 +1,4 @@
-# Using Puppet, instal
+# Using Puppet, instal.
 package {
   'flask':
   ensure   => '2.1.0',
