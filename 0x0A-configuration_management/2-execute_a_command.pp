@@ -1,4 +1,7 @@
-#Using Puppet, create a manifest
-exec { 'killmenow':
+#Execute a bash command
+
+exec {
+  'pkill':
   command => 'pkill killmenow',
+  path    => ['/bin', '/usr/bin'],
 }
