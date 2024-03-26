@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # define variables
-user="ubunt"
+user="ubuntu"
 private_key="~/.ssh/school"
 server="18.209.224.148"
 # SSH connection using single-character flags
