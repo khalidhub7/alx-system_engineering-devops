@@ -1,4 +1,3 @@
-# Install package
 $flask_installed = $facts['os']['flask_installed']
 
 package { 'flask':
