@@ -3,4 +3,4 @@ package { 'flask':
   ensure   => '2.1.0',
   provider => 'pip3',
 }
-puppet apply install_flask.pp
+puppet apply 1-install_a_package.pp
