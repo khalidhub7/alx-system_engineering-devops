@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
-# script that set a custom header named 'X-Served-By' in my 2nd server
-sudo apt-get -y update
-sudo apt-get -y install nginx
+# load
+sudo apt -y update
+sudo apt -y upgrade
+sudo apt -y install nginx
+sudo chown -R ubuntu /var/www/
+touch /var/www/html/index.html
+echo "Hello World!" > /var/www/html/index.html
+sudo chown -R ubuntu /usr/share/nginx/
+echo -e "Ceci n'est pas une page\n" > /usr/share/nginx/html/404.html
+sudo sed -i "/^}$/i \ \n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/CSnotThatHard;\n\t\t# Am omar but you can call me dehao\n\t}\n" /etc/nginx/sites-available/default
+sudo sed -i "/^}$/i \ \n\terror_page 404 /404.html;\n\tlocation = /404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t\t# Omar did this\n\t}\n" /etc/nginx/sites-available/default
+# ++++++++++++++++++++
+sudo sed -i "/^}$/i \ \n\tadd_header X-Served-By $HOSTNAME;\t\n" /etc/nginx/sites-available/default
+# ++++++++++++++++++++
 
-echo "Hello World!" | sudo tee /var/www/html/index.html
-
-redirect_link="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/thevorgx permanent;"
-sudo sed -i "s/server_name _;/$redirect_link/" /etc/nginx/sites-enabled/default
-
-echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
-redirect_link="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
-
-sudo sed -i "s/listen 80 default_server;/$redirect_link/" /etc/nginx/sites-enabled/default
-
-cust_header="add_header X-Served-By \$hostname;"
-sudo sed -i "/server_name _/a $cust_header" /etc/nginx/sites-enabled/default
 sudo service nginx restart
