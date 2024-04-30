@@ -16,9 +16,10 @@ echo "Ceci n'est pas une page\n" > /usr/share/nginx/html/404.html
 redirect_line="https://www.google.fr/"
 comment="# im khalid and this is a server confg"
 path="/etc/nginx/sites-available/default"
+header="X-Served-By"
 
-sudo sed -i "/^}$/i \n\tlocation /redirect_me {\n\t\treturn 301 $redirect_line;\\n\t\t$comment\\n\t}\\n" $path
+sudo sed -i "/^}$/i \ \n\tlocation /redirect_me {\n\t\treturn 301 $redirect_line;\n\t\t$comment\n\t}\n" $path
+sudo sed -i "/^}$/i \ \n\terror_page 404 /404.html;\n\tlocation = /404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t\t$comment\n\t}\n" $path
+sudo sed -i "/^}$/i \ \n\tadd_header $header $HOSTNAME;\t\n" $path
 
-sudo sed -i "/^}$/i \n\terror_page 404 /404.html;\n\tlocation = /404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\\n\t\t$comment\n\t}\n" $path
-
-sudo sed -i "/^}$/i \ \n\tadd_header X-Served-By $HOSTNAME;\t\n" $path
+sudo service nginx restart
