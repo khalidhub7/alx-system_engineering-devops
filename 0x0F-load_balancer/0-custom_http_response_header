@@ -12,7 +12,7 @@ echo "Hello World!" > /var/www/html/index.html
 sudo chown -R ubuntu /usr/share/nginx/
 echo "Ceci n'est pas une page\n" > /usr/share/nginx/html/404.html
 
-#  variables to change server {}
+#  variables to change    server {}
 redirect_line="https://www.google.fr/"
 comment="# im khalid and this is a server confg"
 path="/etc/nginx/sites-available/default"
