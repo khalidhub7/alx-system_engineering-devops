@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Replacing port 8080 with port 80 using sed
+sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo service nginx restart
+kill -9 "$(awk '{print $1}' /run/nginx.pid)"
