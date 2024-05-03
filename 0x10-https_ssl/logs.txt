@@ -1,14 +1,15 @@
 #   command entered for configure task 1 et 2 -------------------
 
 sudo apt update
+sudo apt-get remove certbot
 sudo apt-get install certbot
-sudo systemctl stop nginx
+
 sudo service haproxy stop
 
 
 # this cmd take ' an email used for urgent renewal and security notices'
-# louguikhalid7@gmail.com
-sudo certbot certonly --standalone -d www.lougui77.tech
+# this command take :louguikhalid7@gmail.com and A and N
+sudo certbot certonly --standalone --preferred-challenges http --http-01-port 80 -d www.lougui77.tech
 
 
 
@@ -21,4 +22,4 @@ DOMAIN='www.lougui77.tech' sudo -E bash -c 'cat /etc/letsencrypt/live/$DOMAIN/fu
 sudo chmod -R go-rwx /etc/haproxy/certs
 
 # and now put task 1 or task 2 answer here
-sudo nano /etc/haproxy/haproxy.cfg
+sudo vi /etc/haproxy/haproxy.cfg
