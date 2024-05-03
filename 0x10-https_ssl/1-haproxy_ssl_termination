@@ -1,10 +1,16 @@
-frontend lougui77-tech
+frontend lougui77-frontend
         bind *:80
-        bind *:443 ssl crt /etc/haproxy/certs/www.lougui77.tech.pem
-        redirect scheme https code 301 if !{ ssl_fc }
-        default_backend web_servers
+        mode http
+        http-request redirect scheme https code 301 unless { ssl_fc }
+        http-request set-header X_Forwarded-Proto http
+        default_backend lougui77-backend
 
-backend web_servers
+frontend lougui77-frontend-https
+        bind *:443 ssl crt /etc/haproxy/certs/lougui77.tech.pem
+        http-request set-header X-Forwarded-Proto https
+        default_backend lougui77-backend
+
+backend lougui77-backend
         balance roundrobin
         server 510461-web-01 100.27.2.194:80 check
         server 510461-web-02 52.91.134.33:80 check
