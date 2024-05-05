@@ -6,4 +6,4 @@ HOST ubuntu
 	HostName 100.27.2.194
 	Port 22
 	User ubuntu
-	IdentityFile ~/.ssh/school # Specify the private key file path
+	IdentityFile ~/.ssh/school # Specify the private_key file path
