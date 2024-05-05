@@ -1,13 +1,4 @@
-# SSH client configuration for a specific host
-
-file_line { 'set SSH client options':
-	path    => '/etc/ssh/ssh_config',
-	line    => '	PasswordAuthentication no',
-	ensure  => present,
-}
-
-file_line { 'add SSH IdentityFile':
-	path    => '/etc/ssh/ssh_config',
-	line    => '	IdentityFile ~/.ssh/school',
-	ensure  => present,
+exec { "ssh configuration":
+	command => "echo -e 'HOST *\n\tPasswordAuthentication no\nHOST ubuntu\n\tHostName 100.27.2.194\n\tPort 22\n\tUser ubuntu\n\tIdentityFile ~/.ssh/school' > ~/.ssh/school",
+	path    => ['/bin', '/usr/bin'],
 }
