@@ -4,7 +4,4 @@ name="school"
 passphrase="betty"
 bits=4096
 
-ssh-keygen -b "$bits" -t rsa -f "$name" -N "$passphrase"
-
-# ssh-keygen -b 4096 -t rsa -f "school" -N "betty"
-# ssh-keygen -t <key_type> -b <key_length> -C <comment> -f <filename> -N <passphrase> -q(for quiet mode No warnings)
+ssh-keygen -t rsa -f $name -b $bits -N $passphrase
