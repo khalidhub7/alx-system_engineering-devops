@@ -1,12 +1,9 @@
-# Global settings
-Host *
-    ForwardAgent yes
-    Compression yes
-
-# Specific host configuration of my server
-Host ubuntu@52.86.89.214
-    HostName 52.86.89.214
-    Port 22
-    User ubuntu
-    PasswordAuthentication no
-    IdentityFile ~/.ssh/shcool
+# Global settings for all hosts
+HOST *
+	PasswordAuthentication no
+# Settings for the "ubuntu" host
+HOST ubuntu
+	HostName 100.27.2.194
+	Port 22
+	User ubuntu
+	IdentityFile ~/.ssh/school # Specify the private key file path
