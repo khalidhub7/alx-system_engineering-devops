@@ -5,11 +5,11 @@ args() {
     for item in $@; do
         ((l++))
     done
-    return $l
+    return $num
 }
 args $@
-((l = $?))
-if ((l < 3)); then
+((num = $?))
+if ((num < 3)); then
     echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
     exit 1
 else
