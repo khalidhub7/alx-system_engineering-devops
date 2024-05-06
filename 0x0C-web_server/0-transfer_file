@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-#   transfer file to a server:
+#   transfer file to a server
+
 args() {
     ((num = 0))
     for item in $@; do
@@ -7,6 +8,7 @@ args() {
     done
     return $num
 }
+
 args $@
 ((num = $?))
 if ((num < 3));
