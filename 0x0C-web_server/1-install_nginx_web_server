@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Install nginx web server:
-sudo apt -y update
-sudo apt -y upgrade
-sudo apt -y install nginx
+#   Install nginx
+#   khalidovitch
+sudo apt upgrade -y
+sudo apt install nginx -y
 sudo chown -R ubuntu /var/www/
 touch /var/www/html/index.html
 echo "Hello World!" > /var/www/html/index.html
