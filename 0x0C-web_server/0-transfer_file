@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 #   transfer file to a server:
 args() {
-    ((l = 0))
+    ((num = 0))
     for item in $@; do
         ((l++))
     done
-    return $n
+    return $num
 }
 args $@
-((n = $?))
-if ((n < 3)); then
+((num = $?))
+if ((num < 3)); then
     echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
     exit 1
 else
