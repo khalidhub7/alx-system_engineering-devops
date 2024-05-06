@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 #   redirection
-#   
 sudo apt update -y
 sudo apt upgrade -y
 sudo apt install nginx -y
@@ -8,11 +7,6 @@ sudo chown -R ubuntu /var/www/
 touch /var/www/html/index.html
 echo "Hello World!" > /var/www/html/index.html
 
-sudo sed -i '78i\
-\tlocation /redirect_me {\
-\t\treturn 301 https://translate.google.co.ma/?hl=fr\&sl=auto\&tl=ar\&op=translate;\
-\t\t# this is a redirection of the traduction web site\
-\t\t# i khalid and iam do that in server config\
-\t}' /etc/nginx/sites-available/default
+sudo sed -i '78i\ location /redirect_me { return 301 https://translate.google.co.ma/?hl=fr\&sl=auto\&tl=ar\&op=translate; # this is a redirection of the traduction web site # i khalid and iam do that in server config }' /etc/nginx/sites-available/default
 
 sudo service nginx start
