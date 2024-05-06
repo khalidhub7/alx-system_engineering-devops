@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-# Redirection:
-
-# Install nginx web server:
-sudo apt -y update
-sudo apt -y upgrade
-sudo apt -y install nginx
+#   redirection
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install nginx -y
 sudo chown -R ubuntu /var/www/
 touch /var/www/html/index.html
 echo "Hello World!" > /var/www/html/index.html
-sudo sed -i "/^}$/i \ \n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t\t# Am omar but you can call me dehao\n\t}\n" /etc/nginx/sites-available/default
+
+sudo sed -i '78i\\n\tlocation /redirect_me {\n\t\treturn 301 https://translate.google.co.ma/?hl=fr&sl=auto&tl=ar&op=translate;\n\t\t# this is a redirection of the traduction web site\n\t# i khalid and iam do that in server config\n\t}\n'  /etc/nginx/sites-available/default
 sudo service nginx start
