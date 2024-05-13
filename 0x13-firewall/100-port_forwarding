@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-# forward a port to another
+# forward a port to another port
 
-sudo sed -i '10 s/^#//' /etc/ufw/sysctl.conf
+sed -i '10 s/^#//' /etc/ufw/sysctl.conf
+sudo sysctl -p
+
+sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 8080 -j REDIRECT --to-port 80
 sudo ufw enable
-sudo ufw route allow proto tcp from any to any port 8080 redirect to port 80
