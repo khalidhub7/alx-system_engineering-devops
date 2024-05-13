@@ -9,16 +9,7 @@
 #
 *nat
 :PREROUTING ACCEPT [0:0]
-:INPUT ACCEPT [0:0]
-:OUTPUT ACCEPT [0:0]
-:POSTROUTING ACCEPT [0:0]
--A PREROUTING -i eth0 -p tcp -m tcp --dport 8080 -j REDIRECT --to-ports 80
--A PREROUTING -i eth0 -p tcp -m tcp --dport 8080 -j REDIRECT --to-ports 80
--A PREROUTING -i eth0 -p tcp -m tcp --dport 8080 -j REDIRECT --to-ports 80
--A PREROUTING -i eth0 -p tcp -m tcp --dport 8080 -j REDIRECT --to-ports 80
--A PREROUTING -i eth0 -p tcp -m tcp --dport 8080 -j REDIRECT --to-ports 80
--A PREROUTING -i eth0 -p tcp -m tcp --dport 8080 -j REDIRECT --to-ports 80
--A PREROUTING -i eth0 -p tcp -m tcp --dport 8080 -j REDIRECT --to-ports 80
+-A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
 COMMIT
 # Don't delete these required lines, otherwise there will be errors
 *filter
