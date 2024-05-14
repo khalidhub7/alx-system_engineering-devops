@@ -1,5 +1,0 @@
-
-#!/usr/bin/env bash
-# run a command as the given command
-sudo -u "$1" whoami 
-
