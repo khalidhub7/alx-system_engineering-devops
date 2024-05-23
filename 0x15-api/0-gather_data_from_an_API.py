@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 """ return info about TODO list progress.
 of employee by id """
-
-from sys import argv
 import requests
+from sys import argv
 
 if __name__ == '__main__':
     id = int(argv[1])
@@ -23,3 +22,4 @@ if __name__ == '__main__':
         'Employee {} is done with tasks({}/{}):'.format(data['name'], done, tasks))
     for i in title:
         print(f'{'\t'}{i}')
+
