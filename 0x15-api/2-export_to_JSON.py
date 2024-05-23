@@ -9,7 +9,7 @@ if __name__ == '__main__':
     url = 'https://jsonplaceholder.typicode.com/users/'
     data = requests.get('{}/{}'.format(url, id)).json()
     todo_list = requests.get('{}/{}/todos'.format(url, id)).json()
-    file = '{}.json'.format(id)
+    file = 'gg.json'
 
     cc = []
     for i in todo_list:
