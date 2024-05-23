@@ -1,24 +1,22 @@
 #!/usr/bin/python3
-"""Gather data from an API"""
-
+""" export data in the JSON format. """
 import json
 import requests
 from sys import argv
 
-if __name__ == "__main__":
-    employee_ID = int(argv[1])
-    person = requests.get("\
-https://jsonplaceholder.typicode.com/users/{}".format(employee_ID)).json()
-    todo_list = requests.get("\
-https://jsonplaceholder.typicode.com/users/{}/todos\
-".format(employee_ID)).json()
+if __name__ == '__main__':
+    id = int(argv[1])
+    url = 'https://jsonplaceholder.typicode.com/users/'
+    data = requests.get('{}/{}'.format(url, id)).json()
+    todo_list = requests.get('{}/{}/todos'.format(url, id)).json()
+    file = 'todo_all_employees.json'
 
-    with open('{}.json'.format(employee_ID), 'w') as file:
-        disctionary = {}
-        disctionary["{}".format(employee_ID)] = []
-        user = disctionary["{}".format(employee_ID)]
-        for i in todo_list:
-            user.append({"task": i["title"],
-                         "completed": i["completed"],
-                         "username": person["username"]})
-        json.dump(disctionary, file)
+    cc = []
+    for i in todo_list:
+        cc.append({"task": "{}".format(i.get('title')),
+                   "completed": i.get('completed'),
+                   "username": "{}".format(data['username'])})
+
+    content = {str(id): cc}
+    with open(file, 'w') as f:
+        json.dump(content, f)
