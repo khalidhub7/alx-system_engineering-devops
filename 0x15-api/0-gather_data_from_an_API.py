@@ -18,7 +18,7 @@ if __name__ == '__main__':
             title.append(i.get('title'))
         tasks += 1
 
-    print('Employee {} is done with tasks({}/{}):`\
+    print('Employee {} is done with tasks({}/{}):\
           '.format(data.get('name'),
                    done,
                    tasks))
