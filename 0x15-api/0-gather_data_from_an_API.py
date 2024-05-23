@@ -14,12 +14,11 @@ if __name__ == '__main__':
     done = 0
     title = []
     for i in todo:
-        if i['completed'] == 'true':
+        if i.get('completed') == 'true':
             done += 1
-            title.append(i['title'])
+            title.append(i.get('title'))
         tasks += 1
     print(
-        'Employee {} is done with tasks({}/{}):'.format(data['name'], done, tasks))
+        'Employee {} is done with tasks({}/{}):'.format(data.get('name'), done, tasks))
     for i in title:
         print('\t {}'.format(i))
-
