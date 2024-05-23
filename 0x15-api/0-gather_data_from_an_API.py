@@ -1,9 +1,8 @@
 #!/usr/bin/python3
-"""Return info about TODO list progress of employee by id."""
+"""Return info about todo list progress of employee by id."""
 
 import requests
 from sys import argv
-
 if __name__ == '__main__':
     id = int(argv[1])
     url = 'https://jsonplaceholder.typicode.com/users'
