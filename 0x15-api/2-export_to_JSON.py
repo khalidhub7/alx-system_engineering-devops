@@ -13,9 +13,9 @@ if __name__ == '__main__':
 
     cc = []
     for i in todo_list:
-        cc.append({"task": "{}".format(i.get('title')),
-                   "completed": i.get('completed'),
-                   "username": "{}".format(data['username'])})
+        cc.append({"task": i['title'],
+                   "completed": i['completed'],
+                   "username": data['username']})
 
     content = {str(id): cc}
     with open(file, 'w') as f:
