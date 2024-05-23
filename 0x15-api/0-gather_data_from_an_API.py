@@ -13,14 +13,16 @@ if __name__ == '__main__':
     total_tasks = 0
     completed_tasks = 0
     completed_titles = []
-    
+
     for task in todo_data:
         if task.get('completed'):
             completed_tasks += 1
             completed_titles.append(task.get('title'))
         total_tasks += 1
 
-    print('Employee {} is done with tasks({}/{}):'.format(user_data.get('name'), completed_tasks, total_tasks))
+    print(
+        'Employee {} is done with tasks({}/{}):'.format(
+            user_data.get('name'), completed_tasks, total_tasks))
     for title in completed_titles:
         print('\t {}'.format(title))
 
