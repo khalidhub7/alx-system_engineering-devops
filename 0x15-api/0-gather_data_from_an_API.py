@@ -14,7 +14,7 @@ if __name__ == '__main__':
     done = 0
     title = []
     for i in todo:
-        if i.get('completed') == 'true':
+        if i.get('completed'):
             done += 1
             title.append(i.get('title'))
         tasks += 1
