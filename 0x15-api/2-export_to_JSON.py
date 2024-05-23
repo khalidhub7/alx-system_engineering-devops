@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" export data in the JSON format"""
+""" export data in the JSON format. """
 import json
 import requests
 from sys import argv
@@ -9,7 +9,7 @@ if __name__ == '__main__':
     url = 'https://jsonplaceholder.typicode.com/users/'
     data = requests.get('{}/{}'.format(url, id)).json()
     todo_list = requests.get('{}/{}/todos'.format(url, id)).json()
-    file = 'gg.json'
+    file = '{}.json'.format(id)
 
     cc = []
     for i in todo_list:
