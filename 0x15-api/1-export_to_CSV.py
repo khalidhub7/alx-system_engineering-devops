@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """Return info about todo list of an employee by ID
-but in CSV format """
+but in CSV format"""
 
+import csv
 import requests
 from sys import argv
 
@@ -13,13 +14,9 @@ if __name__ == '__main__':
 
     file = '{}.csv'.format(id)
     csv_list = []
-    for i in todo_list:
-        csv_list.append("'{}','{}','{}','{}'".format(
-            i.get('userId'), data['name'], i.get('completed'), i.get('title')))
-    csv_content = ""
-    for j in csv_list:
-        csv_content += j
-        if j != csv_list[-1]:
-            csv_content += '\n'
-    with open(file, 'w') as f:
-        f.write(csv_content)
+
+    with open(file, 'w', newline='') as f:
+        writing = csv.writer(f, quoting=csv.QUOTE_ALL)
+        for i in todo_list:
+            writing.writerow([i['userId'], data['username'],
+                             i['completed'], i['title']])
