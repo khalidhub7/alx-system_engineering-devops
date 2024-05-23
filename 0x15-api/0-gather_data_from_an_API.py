@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-""" return info about TODO list progress.
-of employee by id """
+"""Return info about TODO list progress of employee by id."""
+
 import requests
 from sys import argv
 
@@ -21,5 +21,5 @@ if __name__ == '__main__':
     print(
         'Employee {} is done with tasks({}/{}):'.format(data['name'], done, tasks))
     for i in title:
-        print(f'{'\t'}{i}')
+        print('\t {}'.format(i))
 
