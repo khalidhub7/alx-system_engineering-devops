@@ -12,9 +12,10 @@ if __name__ == '__main__':
         num_of_employee += 1
 
     all = []
-    for i in range(num_of_employee + 1)[1:]:
+    for i in range(1, num_of_employee + 1):
         todos = requests.get('{}/{}/todos'.format(url, i)).json()
         all.append(todos)
+
     cc = []
     for j in all:
         for m in j:
@@ -23,11 +24,13 @@ if __name__ == '__main__':
 
             cc.append({"task": m['title'],
                        "completed": m['completed'],
-                       "username": data['username']})
+                       "username": user['username']})
+
     content = {}
-    for h in range(num_of_employee + 1)[1:]:
+    for h in range(1, num_of_employee + 1):
         content[str(h)] = [task for task in cc if task['username'] == next(
             user for user in data if user['id'] == h)['username']]
+
     file = 'todo_all_employees.json'
 
     with open(file, 'w') as f:
