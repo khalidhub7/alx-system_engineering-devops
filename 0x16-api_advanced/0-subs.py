@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 """Get the number of subscribers for a subreddit."""
 import requests
@@ -15,3 +14,4 @@ def number_of_subscribers(subreddit):
         return data.get('data', {}).get('subscribers', 0)
     except requests.exceptions.RequestException as e:
         return 0
+
