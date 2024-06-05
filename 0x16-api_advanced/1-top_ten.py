@@ -1,19 +1,24 @@
 #!/usr/bin/python3
-"""return subscribers"""
+"""prints the titles of the first 10 hot posts listed for a given subreddit
+"""
 import requests
 
 
 def top_ten(subreddit):
-    """return subscribers"""
-    if not subreddit or not isinstance(subreddit, str):
-        print(None)
-        return
-    r = requests.get(
-        'https://www.reddit.com/r/{}/hot.json'.format(subreddit),
-        headers={'User-Agent': "omar"})
-    if r.status_code == 200:
-        data = r.json()["data"]
-        for i in range(10):
-            print(data["children"][i]['data']['title'])
-        return
-    print(None)
+    """prints the titles of the first 10 hot posts listed for a given subreddit
+    """
+    if subreddit is None:
+        return 0
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+    params = {
+            "limit": 10
+            }
+    response = requests.get(url, params=params, headers=headers,
+                            allow_redirects=False).json()
+    data = response.get("data", {}).get("children", None)
+    if data:
+        for topic in data:
+            print(topic.get("data").get("title"))
+    else:
+        print("None")
