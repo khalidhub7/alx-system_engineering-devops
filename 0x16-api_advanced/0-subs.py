@@ -1,18 +1,28 @@
 #!/usr/bin/python3
-""" gather subscribers from api """
+"""
+Gather subscribers from Reddit API.
+"""
+
 import requests
 
 
 def number_of_subscribers(subreddit=None):
-    """ subscribers """
+    """
+    Returns the number of subscribers for a given subreddit.
+    If subreddit is invalid or the request fails, returns 0.
+    """
     if subreddit:
-        resp = requests.get('https://www.reddit.com/r/{}/about.json',
-                            headers={'User-Agent': 'Mozilla/5.0'}
-                            .format(subreddit))
-        if resp.status_code == 200:
-            data_returned = resp.json()
+        url = f'https://www.reddit.com/r/{subreddit}/about.json'
+        headers = {'User-Agent': 'MyBot/1.0'}
+        response = requests.get(url, headers=headers)
+        
+        if response.status_code == 200:
+            data_returned = response.json()
             return data_returned['data']['subscribers']
         else:
-            return 0
-    else:
-        return 0
+            print(f"Failed to fetch data for subreddit '{subreddit}': HTTP {response.status_code}")
+    return 0
+
+if __name__ == '__main__':
+    subreddit_name = input("Enter the subreddit name: ")
+    print(f"Number of subscribers in r/{subreddit_name}: {number_of_subscribers(subreddit_name)}")
