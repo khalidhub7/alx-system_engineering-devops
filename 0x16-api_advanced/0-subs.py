@@ -13,3 +13,4 @@ def number_of_subscribers(subreddit=None):
             return data_returned['data']['subscribers']
     else:
         return 0
+
