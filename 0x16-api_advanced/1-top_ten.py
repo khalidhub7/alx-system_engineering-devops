@@ -1,24 +1,22 @@
 #!/usr/bin/python3
-"""prints the titles of the first 10 hot posts listed for a given subreddit
-"""
+"""Contains top_ten function"""
 import requests
 
 
 def top_ten(subreddit):
-    """prints the titles of the first 10 hot posts listed for a given subreddit
-    """
-    if subreddit is None:
-        return 0
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+    """Print the titles of the 10 hottest posts on a given subreddit."""
+    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
+    headers = {
+        "User-Agent": "0x16-api_advanced:project:\
+v1.0.0 (by /u/firdaus_cartoon_jr)"
+    }
     params = {
-            "limit": 10
-            }
-    response = requests.get(url, params=params, headers=headers,
-                            allow_redirects=False).json()
-    data = response.get("data", {}).get("children", None)
-    if data:
-        for topic in data:
-            print(topic.get("data").get("title"))
-    else:
+        "limit": 10
+    }
+    response = requests.get(url, headers=headers, params=params,
+                            allow_redirects=False)
+    if response.status_code == 404:
         print("None")
+        return
+    results = response.json().get("data")
+    [print(c.get("data").get("title")) for c in results.get("children")]
