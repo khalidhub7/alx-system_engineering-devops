@@ -1,20 +1,19 @@
 #!/usr/bin/python3
-"""Gather title from api"""
+"""return subscribers"""
 import requests
 
 
 def top_ten(subreddit):
-    """return top 10 titles"""
-    url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
-    headers = {'User-Agent': 'khalid_loug'}
-    response = requests.get(url, headers=headers, allow_redirects=True)
-    if response.status_code == 200:
-        data = response.json().get('data')
-        max = 1
-        for i in data['children']:
-            print(i['data']['title'])
-            max += 1
-            if max == 11:
-                break
-    else:
+    """return subscribers"""
+    if not subreddit or not isinstance(subreddit, str):
         print(None)
+        return
+    r = requests.get(
+        'https://www.reddit.com/r/{}/hot.json'.format(subreddit),
+        headers={'User-Agent': "omar"})
+    if r.status_code == 200:
+        data = r.json()["data"]
+        for i in range(10):
+            print(data["children"][i]['data']['title'])
+        return
+    print(None)
