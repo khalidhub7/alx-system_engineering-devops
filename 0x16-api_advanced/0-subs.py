@@ -1,15 +1,10 @@
 #!/usr/bin/python3
-"""
-Gather subscribers from API
-"""
-
+"""Gather subscribers from API"""
 import requests
 
 
-def number_of_subscribers(subreddit=None):
-    """
-    Returns the number of subscribers
-    """
+def number_of_subscribers(subreddit):
+    """Returns the number of subscribers"""
     url = f'https://www.reddit.com/r/{subreddit}/about.json'
     headers = {'User-Agent': 'khalid_loug'}
     response = requests.get(url, headers=headers, allow_redirects=False)
