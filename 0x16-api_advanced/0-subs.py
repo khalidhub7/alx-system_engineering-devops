@@ -1,16 +1,15 @@
 #!/usr/bin/python3
-"""Gather subscribers from API"""
+""" gater data from an api """
 import requests
 
 
 def number_of_subscribers(subreddit):
-    """Returns the number of subscribers"""
-    url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
-    headers = {'User-Agent': 'khalid_loug'}
-    response = requests.get(url, headers=headers, allow_redirects=False)
-    if response.status_code == 200:
-        data = response.json().get('data')
-        subs = data.get('subscribers')
-        return int(subs)
-    else:
+    responce = requests.get("https://www.reddit.com/r/{}/about.json"
+                            .format(subreddit), headers={
+                                "User-Agent": "khalid_log"
+                            }, allow_redirects=False)
+    if responce.status_code == 200:
+        data = responce.json()
+        return int(data['data']["subscribers"])
+    elif responce.status_code != 200:
         return 0
