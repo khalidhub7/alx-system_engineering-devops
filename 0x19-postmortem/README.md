@@ -1,6 +1,6 @@
 🍂 Postmortem 🍂
 ____________________________________________________________________
 
-![wallpaLLperflare com_wallpaper](https://github.com/khalidhub7/alx-system_engineering-devops/assets/139714446/f5d027ad-fae2-4975-adf4-c9e9fe8d8543)
+![wallpaperflare com_wallpaper](https://github.com/khalidhub7/alx-system_engineering-devops/assets/139714446/fed6cf47-dfbb-4cb9-a96c-8b8399075714)
 
-![imageedit_2_7448297233](https://github.com/khalidhub7/alx-system_engineering-devops/assets/139714446/8bd4b3f4-1ab5-4506-a464-c34890481283)
+![wallpaLLperflare com_wallpaper](https://github.com/khalidhub7/alx-system_engineering-devops/assets/139714446/f5d027ad-fae2-4975-adf4-c9e9fe8d8543)
