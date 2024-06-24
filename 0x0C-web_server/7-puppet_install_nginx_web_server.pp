@@ -1,33 +1,30 @@
-# install nginx
+# Setup New Ubuntu server with nginx
+
+# Update system package lists
+exec { 'update system':
+    command => '/usr/bin/apt-get update',
+}
+
+# Install nginx package
 package { 'nginx':
-  ensure => installed,
+    ensure => 'installed',
+    require => Exec['update system'],
 }
 
-# website index file
+# Create index.html with "Hello World!" content
 file { '/var/www/html/index.html':
-  content => 'Hello World!',
+    content => 'Hello World!',
 }
 
-# redirect_me config
-file_line { 'redirect_me':
-  ensure => present,
-  path   => '/etc/nginx/sites-available/default',
-  after  => 'server_name _;',
-  line   => '
-        location /redirect_me {
-            return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-            # Am omar but you can call me dehao
-        }',
+# Add a rewrite rule to nginx configuration
+exec { 'redirect_me':
+    command => '/bin/sed -i "26i\\       rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;" /etc/nginx/sites-available/default',
+    provider => 'shell',
+    require => Package['nginx'],
 }
 
-# stop nginx
-exec { 'stop service':
-  command => 'sudo service nginx stop',
-  path    => ['/bin', '/usr/bin', '/usr/sbin'],
-}
-
-# run nginx
-exec { 'start service':
-  command => 'sudo service nginx start',
-  path    => ['/bin', '/usr/bin', '/usr/sbin'],
+# Ensure nginx service is running
+service { 'nginx':
+    ensure => 'running',
+    require => Package['nginx'],
 }
