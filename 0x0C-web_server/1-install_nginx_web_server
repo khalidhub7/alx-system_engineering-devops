@@ -2,10 +2,10 @@
 # Use the bash shell to execute this script
 
 # Update the package list quietly (-qq) and automatically answer 'yes' to prompts (-y)
-sudo apt-get update -y -qq && \
-         sudo apt-get install nginx -y
+sudo apt -y update
+sudo apt -y upgrade
 # Install Nginx quietly and automatically answer 'yes' to prompts
-
+sudo apt -y install nginx
 # Start the Nginx service
 sudo service nginx start
 
