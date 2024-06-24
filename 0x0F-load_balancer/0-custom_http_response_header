@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# setup server 2 to be same as server 1 by khalid
+# Use the bash shell to execute this script
+
 # Update the package list quietly (-qq) and automatically answer 'yes' to prompts (-y)
 sudo apt -y update
 sudo apt -y upgrade
@@ -7,23 +8,33 @@ sudo apt -y upgrade
 sudo apt -y install nginx
 # Start the Nginx service
 sudo service nginx start
+
 # Allow HTTP traffic through the firewall for Nginx
 sudo ufw allow 'Nginx HTTP'
+
 # Change ownership of the /var/www/html directory to the current user
 sudo chown -R "$USER":"$USER" /var/www/html
+
 # Change permissions of the /var/www directory to 755 (rwxr-xr-x)
 sudo chmod -R 755 /var/www
+
 # Backup the default Nginx index.html file
 cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+
 # Replace the content of the index.html file with "Hello World!"
 echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
 
-# Add redirect rule to Nginx config
-sudo sed -i '25i\	 rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
-# Add custom 404 error page to the Nginx server
+
+
+
+# Add a redirect rule to the Nginx configuration
+sudo sed -i '24,25d' /etc/nginx/sites-available/default
+sudo sed -i '24i\        # rewrite directive 0x0C-web_server task 3' /etc/nginx/sites-available/default
+sudo sed -i '25i\        rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+# Add a custom 404 error page to the Nginx server
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/error_404.html > /dev/null
-sudo sed -i '52i\        error_page 404 /error_404.html; # 0x0C-web_server task 4' /etc/nginx/sites-available/default
+sudo sed -i '53s/.*/        error_page 404 \/error_404.html; # 0x0C-web_server task 4/' /etc/nginx/sites-available/default
 # add custom header by following 0x0F-load_balancer Task 0
-sudo sed -i '50i\        add_header X-Served-By $hostname; # Add custom header 0x0F-load_balancer TASK 0' /etc/nginx/sites-available/default
+sudo sed -i '50s/.*/        add_header X-Served-By $hostname; # Add custom header 0x0F-load_balancer TASK 0/' /etc/nginx/sites-available/default
 # Restart the Nginx service to apply changes
 sudo service nginx restart
