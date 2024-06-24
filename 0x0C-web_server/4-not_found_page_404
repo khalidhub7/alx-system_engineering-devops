@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
-# Redirection:
+# Use the bash shell to execute this script
 
-# Install nginx web server:
-sudo apt -y update
-sudo apt -y upgrade
-sudo apt -y install nginx
-sudo chown -R ubuntu /var/www/
-touch /var/www/html/index.html
-echo "Hello World!" > /var/www/html/index.html
-sudo chown -R ubuntu /usr/share/nginx/
-echo -e "Ceci n'est pas une page\n" > /usr/share/nginx/html/404.html
-# sudo sed -i "/^}$/i \ \n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t\t# Am omar but you can call me dehao\n\t}\n" /etc/nginx/sites-available/default
-sudo sed -i "/^}$/i \ \n\terror_page 404 /404.html;\n\tlocation = /404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t\t# Omar did this\n\t}\n" /etc/nginx/sites-available/default
-sudo service nginx start
+# Create a custom 404 error page with the text "Ceci n'est pas une page" and save it to /var/www/html/custom_404.html
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html > /dev/null
+
+# Insert a line at line 46 in the Nginx configuration file to define the custom 404 error page
+sed -i '52i \t# Placeholder for custom error page' /etc/nginx/sites-available/default
+sed -i '53i \terror_page 404 /custom_404.html;' /etc/nginx/sites-available/default
+# Restart the Nginx service to apply the changes
+service nginx restart
