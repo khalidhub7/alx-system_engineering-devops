@@ -25,7 +25,7 @@ cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.b
 echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
 
 # Add a redirect rule to the Nginx configuration
-sudo sed -i '24i\	 rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+sudo sed -i '25i\	 rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 
 # Add a custom 404 error page to the Nginx server
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/error_404.html > /dev/null
