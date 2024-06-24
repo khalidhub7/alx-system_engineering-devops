@@ -1,14 +1,36 @@
 #!/usr/bin/env bash
-# redirection
+# Use bash shell to execute this script
 
-sudo apt update -y
-sudo apt upgrade -y
-sudo apt install nginx -y
-sudo chown -R ubuntu /var/www/
-touch /var/www/html/index.html
-echo "Hello World!" > /var/www/html/index.html
+# Update the package list and upgrade all installed packages
+sudo apt -y update
+sudo apt -y upgrade
 
-sudo sed -i '78i\ location /redirect_me { return 301 https://translate.google.co.ma/?hl=fr\&sl=auto\&tl=ar\&op=translate; # this is a redirection of the traduction web site # i khalid and iam do that in server config }' /etc/nginx/sites-available/default
+# Install Nginx web server
+sudo apt -y install nginx
 
+# Start the Nginx service
 sudo service nginx start
 
+# Allow HTTP traffic for Nginx through the firewall
+sudo ufw allow 'Nginx HTTP'
+
+# Change ownership of /var/www/html to the current user
+sudo chown -R "$USER":"$USER" /var/www/html
+
+# Set permissions of /var/www to 755 (read, write, and execute for owner, read and execute for others)
+sudo chmod -R 755 /var/www
+
+# Backup the default Nginx index.html file
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+
+# Replace the content of the index.html file with "Hello World!"
+echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
+
+# Add a redirect rule to the Nginx configuration
+sudo sed -i '24i\       rewrite ^/redirect_me http://192.168.0.1/ permanent;' /etc/nginx/sites-available/default
+
+# Restart the Nginx service to apply changes
+sudo service nginx restart
+
+# Print a confirmation message
+echo -e "\nall good.\n"
