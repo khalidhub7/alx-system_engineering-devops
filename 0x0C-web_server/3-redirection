@@ -1,30 +1,7 @@
 #!/usr/bin/env bash
 # Use bash shell to execute this script
 
-# Update the package list and upgrade all installed packages
-sudo apt -y update
-sudo apt -y upgrade
 
-# Install Nginx web server
-sudo apt -y install nginx
-
-# Start the Nginx service
-sudo service nginx start
-
-# Allow HTTP traffic for Nginx through the firewall
-sudo ufw allow 'Nginx HTTP'
-
-# Change ownership of /var/www/html to the current user
-sudo chown -R "$USER":"$USER" /var/www/html
-
-# Set permissions of /var/www to 755 (read, write, and execute for owner, read and execute for others)
-sudo chmod -R 755 /var/www
-
-# Backup the default Nginx index.html file
-cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
-
-# Replace the content of the index.html file with "Hello World!"
-echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
 
 # Add a redirect rule to the Nginx configuration
 sudo sed -i '24i\       rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
