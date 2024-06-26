@@ -1,10 +1,95 @@
-frontend khalid77-tech # here for https_ssl project
-        bind *:80
-        bind *:443 ssl crt /etc/haproxy/certs/www.lougui77.tech.pem
-        redirect scheme https code 301 if !{ ssl_fc }
-        default_backend web_servers
+#!/usr/bin/env bash
+# khalid config haproxy
+sudo apt update
+sudo apt install snapd
+sudo apt-get remove certbot
+sudo apt-get install certbot
+sudo service haproxy stop
 
-backend web_servers
+
+# Obtain SSL certificates
+sudo certbot certonly --standalone --preferred-challenges http --http-01-port 80 -d lougui77.tech
+sudo certbot certonly --standalone --preferred-challenges http --http-01-port 80 -d web-01.lougui77.tech
+sudo certbot certonly --standalone --preferred-challenges http --http-01-port 80 -d web-02.lougui77.tech
+sudo certbot certonly --standalone --preferred-challenges http --http-01-port 80 -d www.lougui77.tech
+sudo certbot certonly --standalone --preferred-challenges http --http-01-port 80 -d lb-01.lougui77.tech
+: << 'EOF'
+when khalid start the above commands this following domains (lougui77.tech
+web-01.lougui77.tech
+web-02.lougui77.tech) are failed
+
+i think because dont start with 'www' and 
+lb-01.lougui77.tech success 
+
+because www.lougui77.tech && lb-01.lougui77.tech
+are same ip
+EOF
+
+
+
+# List the contents of the SSL certificates directory
+sudo ls /etc/letsencrypt/live/www.lougui77.tech
+sudo ls /etc/letsencrypt/live/lb-01.lougui77.tech
+
+
+# Create the directory for HAProxy certificates
+sudo mkdir -p /etc/haproxy/certs
+
+: << 'EOF'
+Combine certificate and key into a single file for HAProxy
+EOF
+
+DOMAINS=(
+    "www.lougui77.tech"
+    "lb-01.lougui77.tech"
+)
+for DOMAIN in "${DOMAINS[@]}"; do
+    CERT_DIR="/etc/letsencrypt/live/$DOMAIN"
+    HAPROXY_CERT_DIR="/etc/haproxy/certs"
+    sudo cat "$CERT_DIR/fullchain.pem" "$CERT_DIR/privkey.pem" | sudo tee "$HAPROXY_CERT_DIR/$DOMAIN.pem"
+    echo "done !!"
+done
+
+
+# Set appropriate permissions for the certificates directory
+sudo chmod -R go-rwx /etc/haproxy/certs
+# Edit HAProxy configuration file
+sudo vi /etc/haproxy/haproxy.cfg # here we add requirement of task 1 in ssl project
+
+
+: << 'EOF'
+_____________first append this to frontend 1
+        mode http
+        http-request redirect scheme https code 301 unless { ssl_fc }
+        http-request set-header X_Forwarded-Proto http
+        default_backend khalid_servers
+
+_____________second create frontend 2 like this
+        frontend khalid77-tech-https
+            bind *:443 ssl crt /etc/haproxy/certs/www.lougui77.tech.pem
+            http-request set-header X-Forwarded-Proto https
+            default_backend khalid_servers
+_____________this is the final config
+"""   
+    frontend khalid77-tech
+        bind *:80
+        mode http
+        http-request redirect scheme https code 301 unless { ssl_fc }
+        http-request set-header X-Forwarded-Proto http
+        default_backend khalid_servers
+
+    frontend khalid77-tech-https
+        bind *:443 ssl crt /etc/haproxy/certs/www.lougui77.tech.pem
+        http-request set-header X-Forwarded-Proto https
+        default_backend khalid_servers
+
+    backend khalid_servers
         balance roundrobin
-        server 510461-web-01 100.27.2.194:80 check
-        server 510461-web-02 52.91.134.33:80 check
+        server 510461-web-01 100.27.0.26:80 check
+        server 510461-web-02 54.90.56.60:80 check
+"""
+EOF
+
+
+
+sudo service haproxy restart
