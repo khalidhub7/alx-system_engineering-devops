@@ -1,10 +1,16 @@
-frontend khalid77-tech # here for https_ssl project
+frontend khalid77-tech
         bind *:80
-        bind *:443 ssl crt /etc/haproxy/certs/www.lougui77.tech.pem
-        redirect scheme https code 301 if !{ ssl_fc }
-        default_backend web_servers
+        mode http
+        http-request redirect scheme https code 301 unless { ssl_fc }
+        http-request set-header X-Forwarded-Proto http
+        default_backend khalid_servers
 
-backend web_servers
-        balance roundrobin
-        server 510461-web-01 100.27.2.194:80 check
-        server 510461-web-02 52.91.134.33:80 check
+frontend khalid77-tech-https
+        bind *:443 ssl crt /etc/haproxy/certs/www.lougui77.tech.pem
+        http-request set-header X-Forwarded-Proto https
+        default_backend khalid_servers
+
+backend khalid_servers
+    balance roundrobin
+    server 510461-web-01 100.27.0.26:80 check
+    server 510461-web-02 54.90.56.60:80 check
