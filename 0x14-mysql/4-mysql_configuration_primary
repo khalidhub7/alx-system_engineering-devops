@@ -9,9 +9,9 @@ log-error       = /var/log/mysql/error.log
 # bind-address    = 127.0.0.1
 
 # Disabling symbolic-links is recommended to prevent assorted security risks
-symbolic-links  = 0
+symbolic-links  = 0 # changed by khalid
 
 # this is changed values for the project (0x14-mysql)
-server-id       = 1
-binlog_do_db    = tyrell_corp
+server-id       = 1 # changed by khalid
+binlog_do_db    = tyrell_corp # changed by khalid
 log_bin         = /var/log/mysql/mysql-bin.log

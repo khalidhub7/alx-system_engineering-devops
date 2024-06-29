@@ -1,33 +1,49 @@
 #!/usr/bin/env bash
 # Setup master and slave servers
 
-# Disable ufw before starting
-sudo ufw disable
+# make sure to allow connections about two servers
+sudo ufw allow 3306
 
 # Define configuration data for master and slave servers
-config_data_01="
+config_data_01="\
+# a lot of comment removed here
 [mysqld]
 pid-file        = /var/run/mysqld/mysqld.pid
 socket          = /var/run/mysqld/mysqld.sock
 datadir         = /var/lib/mysql
 log-error       = /var/log/mysql/error.log
-symbolic-links  = 0
-server-id       = 1
-binlog_do_db    = tyrell_corp
-log_bin         = /var/log/mysql/mysql-bin.log
+
+# By default we only accept connections from localhost
+# bind-address    = 127.0.0.1
+
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links  = 0 # changed by khalid
+
+# this is changed values for the project (0x14-mysql)
+server-id       = 1 # changed by khalid
+binlog_do_db    = tyrell_corp # changed by khalid
+log_bin         = /var/log/mysql/mysql-bin.log\
 "
 
-config_data_02="
+config_data_02="\
+# a lot of comment removed here
 [mysqld]
 pid-file        = /var/run/mysqld/mysqld.pid
 socket          = /var/run/mysqld/mysqld.sock
 datadir         = /var/lib/mysql
 log-error       = /var/log/mysql/error.log
+
+# By default we only accept connections from localhost
+# bind-address   = 127.0.0.1 # chnaged
+
+# Disabling symbolic-links is recommended to prevent assorted security risks
 symbolic-links  = 0
-server-id       = 2
+
+# this is changed values for the project (0x14-mysql)
+server-id       = 2 # changed
 log_bin         = /var/log/mysql/mysql-bin.log
-binlog_do_db    = tyrell_corp
-relay-log       = /var/log/mysql/mysql-relay-bin.log
+binlog_do_db    = tyrell_corp # changed
+relay-log       = /var/log/mysql/mysql-relay-bin.log\
 "
 
 # Get the server's hostname
