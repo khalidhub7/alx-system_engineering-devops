@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # connect to the server using private_key instead of password
-user="ubuntu"
-private_key_path="~/.ssh/school"
-server="54.237.3.226"
 
-ssh -i "$private_key_path" "$user@$server"
+
+# user="ubuntu"
+# private_key_path="~/.ssh/school"
+# server="54.237.3.226"
+
 ssh -i ~/.ssh/school ubuntu@54.237.3.226
