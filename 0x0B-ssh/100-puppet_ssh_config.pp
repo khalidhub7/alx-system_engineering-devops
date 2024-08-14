@@ -1,3 +1,5 @@
+# edit ssh config file
+# automate using puppet
 exec { 'ssh_configuration':
   command => 'echo "
 # task 2 in 0x0B-ssh
