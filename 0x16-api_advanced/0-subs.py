@@ -1,31 +1,30 @@
 #!/usr/bin/python3
-"""Gather data from an API"""
+"""
+Query subscribers on a given Reddit subreddit
+"""
+
 import requests
 
 
 def number_of_subscribers(subreddit):
-    """
-    Queries the Reddit API and returns the number of subscribers
-    for a given subreddit. If an invalid subreddit is given,
-    the function returns 0.
-    """
-    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
+    """Return the total number of subscribers on a given subreddit"""
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
     headers = {
-        "User-Agent": "khalid_log/0.0.1 (by u/your_reddit_username)"
+        'User-Agent': 'MyRedditApp/1.0 (by /u/Alogyn)'
     }
+
     try:
         response = requests.get(url, headers=headers, allow_redirects=False)
-        if response.status_code == 200:
-            data = response.json()
-            return int(data['data']['subscribers'])
-        else:
+        print(f"Status Code: {response.status_code}")
+        if response.status_code == 403:
+            print("403 Forbidden: Access is denied.")
             return 0
-    except requests.RequestException:
-        return 0
+        elif response.status_code != 200:
+            print(f"Unexpected Status Code: {response.status_code}")
+            return 0
 
-if __name__ == "__main__":
-    import sys
-    if len(sys.argv) > 1:
-        print(number_of_subscribers(sys.argv[1]))
-    else:
-        print("Usage: {} <subreddit>".format(sys.argv[0]))
+        data = response.json().get('data', {})
+        return data.get('subscribers', 0)
+    except Exception as e:
+        print(f"Error: {e}")
+        return 0
