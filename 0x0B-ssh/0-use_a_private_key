@@ -6,4 +6,4 @@
 # private_key_path="~/.ssh/school"
 # server="54.237.3.226"
 
-ssh -i ~/.ssh/school ubuntu@54.237.3.226
+ssh -i ~/.ssh/school ubuntu@34.203.38.10
