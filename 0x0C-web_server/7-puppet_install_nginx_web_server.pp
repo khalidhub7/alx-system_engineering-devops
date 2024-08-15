@@ -1,25 +1,33 @@
-# Install Nginx
+
+# install nginx
 package { 'nginx':
   ensure => installed,
 }
 
-# Create index file
+# website index file
 file { '/var/www/html/index.html':
-  ensure  => file,
   content => 'Hello World!',
 }
 
-# Configure redirection
-file_line { 'add_redirect_me':
-  path  => '/etc/nginx/sites-available/default',
-  after => 'server_name _;',
-  line  => '        location /redirect_me {\n            return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n        }',
+# redirect_me config
+file_line { 'redirect_me':
+  ensure => present,
+  path   => '/etc/nginx/sites-available/default',
+  after  => 'server_name _;',
+  line   => '
+        location /redirect_me {
+            return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        }',
 }
 
-# Restart Nginx to apply changes
-service { 'nginx':
-  ensure    => running,
-  enable    => true,
-  subscribe => File['/etc/nginx/sites-available/default'],
+# stop nginx
+exec { 'stop service':
+  command => 'sudo service nginx stop',
+  path    => ['/bin', '/usr/bin', '/usr/sbin'],
 }
 
+# run nginx
+exec { 'start service':
+  command => 'sudo service nginx start',
+  path    => ['/bin', '/usr/bin', '/usr/sbin'],
+}
