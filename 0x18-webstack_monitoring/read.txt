@@ -1,0 +1,20 @@
+---
+
+**Steps:**
+
+1. **Sign up** at [https://app.datadoghq.com](https://app.datadoghq.com) (use **US1 region**).
+   - Install the Datadog Agent on `web-01`.
+
+2. **Get API & App Keys**:
+   - Go to your profile, generate the keys, and paste them.
+
+3. **Set Up Monitors**:
+   - Monitor read requests per second (`system.io.r_s`).
+     - **Name**: High Read Requests on `web-01`
+     - **Message**: "Alert: Read requests on `web-01` exceeded the threshold. Current: `{{last_value}}` req/sec. Check disk I/O."
+   - Monitor write requests per second (`system.io.w_s`).
+
+4. **Create a Dashboard**:
+   - Add at least 4 widgets and copy the dashboard ID.
+
+---
