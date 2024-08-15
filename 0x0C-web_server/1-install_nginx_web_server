@@ -1,28 +1,10 @@
 #!/usr/bin/env bash
-# Use the bash shell to execute this script
+# install nginx
 
-# Update the package list quietly (-qq) and automatically answer 'yes' to prompts (-y)
+
 sudo apt -y update
 sudo apt -y upgrade
-# Install Nginx quietly and automatically answer 'yes' to prompts
 sudo apt -y install nginx
-# Start the Nginx service
-sudo service nginx start
-
-# Allow HTTP traffic through the firewall for Nginx
-sudo ufw allow 'Nginx HTTP'
-
-# Change ownership of the /var/www/html directory to the current user
-sudo chown -R "$USER":"$USER" /var/www/html
-
-# Change permissions of the /var/www directory to 755 (rwxr-xr-x)
-sudo chmod -R 755 /var/www
-
-# Backup the default Nginx index.html file
-cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
-
-# Replace the content of the index.html file with "Hello World!"
-echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
-
-# Restart the Nginx service to apply changes
+sudo touch /var/www/html/index.html
+echo 'Hello World!' | sudo tee /var/www/html/index.html
 sudo service nginx restart
