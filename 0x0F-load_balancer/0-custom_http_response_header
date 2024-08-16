@@ -1,40 +1,28 @@
 #!/usr/bin/env bash
-# Use the bash shell to execute this script
+# set up web_02 to be identical as web_01
 
-# Update the package list quietly (-qq) and automatically answer 'yes' to prompts (-y)
+
+# web server tasks
+# task 1: install nginx
 sudo apt -y update
 sudo apt -y upgrade
-# Install Nginx quietly and automatically answer 'yes' to prompts
 sudo apt -y install nginx
-# Start the Nginx service
-sudo service nginx start
+sudo touch /var/www/html/index.html
+echo 'Hello World!' | sudo tee /var/www/html/index.html
 
-# Allow HTTP traffic through the firewall for Nginx
-sudo ufw allow 'Nginx HTTP'
+# task 3: Redirection
+cp /etc/nginx/sites-available/default ~/backups/available_default # backup the file if an error occurs
+sudo sed -i '14i\\n\n\n# this is for task 3 in 0x0C-web_server\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n\n' /etc/nginx/sites-available/default
 
-# Change ownership of the /var/www/html directory to the current user
-sudo chown -R "$USER":"$USER" /var/www/html
-
-# Change permissions of the /var/www directory to 755 (rwxr-xr-x)
-sudo chmod -R 755 /var/www
-
-# Backup the default Nginx index.html file
-cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
-
-# Replace the content of the index.html file with "Hello World!"
-echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
+# task 4: custom 404 page in my Nginx server
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/error_404.html
+sudo sed -i '19i\
+\terror_page 404 /error_404.html;\n\
+' /etc/nginx/sites-available/default
 
 
+# load balancer tasks
+# Add custom header 0x0F-load_balancer TASK 0
+sudo sed -i '21s/.*/        add_header X-Served-By $hostname; # Add custom header 0x0F-load_balancer TASK 0/' /etc/nginx/sites-available/default
 
-
-# Add a redirect rule to the Nginx configuration
-sudo sed -i '24,25d' /etc/nginx/sites-available/default
-sudo sed -i '24i\        # rewrite directive 0x0C-web_server task 3' /etc/nginx/sites-available/default
-sudo sed -i '25i\        rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
-# Add a custom 404 error page to the Nginx server
-echo "Ceci n'est pas une page" | sudo tee /var/www/html/error_404.html > /dev/null
-sudo sed -i '53s/.*/        error_page 404 \/error_404.html; # 0x0C-web_server task 4/' /etc/nginx/sites-available/default
-# add custom header by following 0x0F-load_balancer Task 0
-sudo sed -i '50s/.*/        add_header X-Served-By $hostname; # Add custom header 0x0F-load_balancer TASK 0/' /etc/nginx/sites-available/default
-# Restart the Nginx service to apply changes
 sudo service nginx restart
