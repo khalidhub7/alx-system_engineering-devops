@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# set up web_02 to be identical as web_01
+#set up web_02 to be identical as web_01
 
-# web server tasks that the settings of web 01 is
+#web server tasks that the settings of web 01  is
 sudo apt -y update
 sudo apt -y upgrade
 sudo apt -y install nginx
@@ -20,7 +20,7 @@ sudo sed -i "19i\\
 \terror_page 404 /error_404.html;\\
 " /etc/nginx/sites-available/default
 
-# load balancer tasks
-# Add custom header 0x0F-load_balancer TASK 0
+#load balancer tasks
+#Add custom header 0x0F-load_balancer TASK 0
 sudo sed -i "21s/\\tadd_header X-Served-By \$hostname; # Add custom header 0x0F-load_balancer TASK 0/" /etc/nginx/sites-available/default
 sudo service nginx restart
