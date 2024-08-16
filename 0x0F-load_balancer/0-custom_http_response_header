@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # set up web_02 to be identical as web_01
 
-# web server tasks that the settings of web 01  is
+# web server tasks that the settings of web 01 is
 sudo apt -y update
 sudo apt -y upgrade
 sudo apt -y install nginx
