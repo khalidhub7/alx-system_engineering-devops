@@ -1,26 +1,37 @@
 #!/usr/bin/env bash
-#set up web_02 to be identical as web_01
+# set up web_02 to be identical as web_01
 
-#web server tasks that the settings of web 01  is
 sudo apt -y update
 sudo apt -y upgrade
 sudo apt -y install nginx
 sudo touch /var/www/html/index.html
 echo 'Hello World!' | sudo tee /var/www/html/index.html
-cp /etc/nginx/sites-available/default ~/backups/available_default # backup the file if an error occurs
-sudo sed -i "14i\\
-# this is for task 3 in 0x0C-web_server\\
-\tlocation /redirect_me {\\
-\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\\
-\t}\\
-\\
-" /etc/nginx/sites-available/default
+# backup the file if an error occurs
+cp /etc/nginx/sites-available/default ~/backups/available_default
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/error_404.html
-sudo sed -i "19i\\
-\terror_page 404 /error_404.html;\\
-" /etc/nginx/sites-available/default
 
-#load balancer tasks
-#Add custom header 0x0F-load_balancer TASK 0
-sudo sed -i "21s/\\tadd_header X-Served-By \$hostname; # Add custom header 0x0F-load_balancer TASK 0/" /etc/nginx/sites-available/default
+echo "server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        root /var/www/html;
+
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+
+# this is for task 3 in 0x0C-web_server
+        location /redirect_me {
+                return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        }
+
+        error_page 404 /error_404.html;
+
+        add_header X-Served-By $hostname; #Add custom header 0x0F-load_balancer TASK 0
+
+}" | sudo tee /etc/nginx/sites-available/default
+
 sudo service nginx restart
