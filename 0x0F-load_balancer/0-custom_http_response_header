@@ -1,3 +1,4 @@
+
 #!/usr/bin/env bash
 # set up web_02 to be identical as web_01
 
@@ -12,7 +13,7 @@ echo 'Hello World!' | sudo tee /var/www/html/index.html
 
 # task 3: Redirection
 cp /etc/nginx/sites-available/default ~/backups/available_default # backup the file if an error occurs
-sudo sed -i '14i\\n\n\n# this is for task 3 in 0x0C-web_server\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n\n' /etc/nginx/sites-available/default
+sudo sed -i '14i\# this is for task 3 in 0x0C-web_server\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n\n' /etc/nginx/sites-available/default
 
 # task 4: custom 404 page in my Nginx server
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/error_404.html
