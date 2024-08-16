@@ -1,29 +1,26 @@
 #!/usr/bin/env bash
 # set up web_02 to be identical as web_01
 
-# Update and install Nginx
+# web server tasks that the settings of web 01  is
 sudo apt -y update
 sudo apt -y upgrade
 sudo apt -y install nginx
-
-# Create index.html with "Hello World!"
+sudo touch /var/www/html/index.html
 echo 'Hello World!' | sudo tee /var/www/html/index.html
-
-# Backup the default Nginx config file
-sudo cp /etc/nginx/sites-available/default ~/backups/available_default
-
-# Insert redirect configuration for task 3
-sudo sed -i '14i\# this is for task 3 in 0x0C-web_server\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n' /etc/nginx/sites-available/default
-
-# Create custom 404 error page
+cp /etc/nginx/sites-available/default ~/backups/available_default # backup the file if an error occurs
+sudo sed -i "14i\\
+# this is for task 3 in 0x0C-web_server\\
+\tlocation /redirect_me {\\
+\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\\
+\t}\\
+\\
+" /etc/nginx/sites-available/default
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/error_404.html
+sudo sed -i "19i\\
+\terror_page 404 /error_404.html;\\
+" /etc/nginx/sites-available/default
 
-# Add custom error page handling to Nginx config
-sudo sed -i '19i\error_page 404 /error_404.html;\n' /etc/nginx/sites-available/default
-
-# Add custom header for load balancer task
-sudo sed -i '21i\add_header X-Served-By $hostname; # Add custom header 0x0F-load_balancer TASK 0\n' /etc/nginx/sites-available/default
-
-# Restart Nginx to apply changes
+# load balancer tasks
+# Add custom header 0x0F-load_balancer TASK 0
+sudo sed -i "21s/\\tadd_header X-Served-By \$hostname; # Add custom header 0x0F-load_balancer TASK 0/" /etc/nginx/sites-available/default
 sudo service nginx restart
-
