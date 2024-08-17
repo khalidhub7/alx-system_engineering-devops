@@ -14,17 +14,20 @@ sudo certbot certonly --standalone --preferred-challenges http --http-01-port 80
 sudo certbot certonly --standalone --preferred-challenges http --http-01-port 80 -d www.lougui77.tech
 sudo certbot certonly --standalone --preferred-challenges http --http-01-port 80 -d lb-01.lougui77.tech
 : << 'EOF'
-when khalid start the above commands this following domains (lougui77.tech
+when khalid start the above commands this following domains (
+lougui77.tech
 web-01.lougui77.tech
 web-02.lougui77.tech) are failed
 
-i think because dont start with 'www' and 
+because:
+If Nginx (or another web server) is using port 80,
+Certbot's standalone mode can't work
+you should to stop nginx tempororally
+To fix this, stop Nginx temporarily before running Certbot.
+
+and 
 lb-01.lougui77.tech success 
-
-because www.lougui77.tech && lb-01.lougui77.tech
-are same ip
 EOF
-
 
 
 # List the contents of the SSL certificates directory
@@ -37,8 +40,10 @@ sudo mkdir -p /etc/haproxy/certs
 
 : << 'EOF'
 Combine certificate and key into a single file for HAProxy
+example:
+    to create pem files
+    ex: /etc/haproxy/certslb-01.lougui77.tech.pem
 EOF
-
 DOMAINS=(
     "www.lougui77.tech"
     "lb-01.lougui77.tech"
@@ -53,43 +58,48 @@ done
 
 # Set appropriate permissions for the certificates directory
 sudo chmod -R go-rwx /etc/haproxy/certs
+
+
 # Edit HAProxy configuration file
 sudo vi /etc/haproxy/haproxy.cfg # here we add requirement of task 1 in ssl project
-
-
 : << 'EOF'
-_____________first append this to frontend 1
+khalid Explanation
+im use Separate Frontends (http, https)
+_____________first append this to frontend 1 to handle http
+# to Redirects non-HTTPS requests to HTTPS.
         mode http
-        http-request redirect scheme https code 301 unless { ssl_fc }
+        http-request redirect scheme https code 301 if !{ ssl_fc }
+# Adds a header to indicate the original request was made using HTTP
         http-request set-header X_Forwarded-Proto http
         default_backend khalid_servers
 
-_____________second create frontend 2 like this
-        frontend khalid77-tech-https
+_____________second create frontend 2 like this to hundle https
+        frontend khalid_loug-https
+# the location of certificate
             bind *:443 ssl crt /etc/haproxy/certs/www.lougui77.tech.pem
+# Adds a header to indicate the original request was made using HTTPS
             http-request set-header X-Forwarded-Proto https
             default_backend khalid_servers
 _____________this is the final config
-"""   
-    frontend khalid77-tech
+"""
+    frontend khalid_loug
         bind *:80
         mode http
-        http-request redirect scheme https code 301 unless { ssl_fc }
+        http-request redirect scheme https code 301 if !{ ssl_fc }
         http-request set-header X-Forwarded-Proto http
         default_backend khalid_servers
 
-    frontend khalid77-tech-https
+    frontend khalid_loug-https
         bind *:443 ssl crt /etc/haproxy/certs/www.lougui77.tech.pem
         http-request set-header X-Forwarded-Proto https
         default_backend khalid_servers
 
     backend khalid_servers
         balance roundrobin
-        server 510461-web-01 100.27.0.26:80 check
-        server 510461-web-02 54.90.56.60:80 check
+        server 510461-web-01 34.203.38.10:80 check
+        server 510461-web-02 54.175.223.87:80 check
 """
 EOF
-
 
 
 sudo service haproxy restart
