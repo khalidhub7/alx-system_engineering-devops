@@ -7,9 +7,11 @@ server {
 
         server_name _;
 
-        location / {
-                try_files $uri $uri/ =404;
-        }
+
+# comment this to avoid conflict in app-server
+        #location / {
+        #        try_files $uri $uri/ =404;
+        #}
 
         # this is for task 3 in 0x0C-web_server
         location /redirect_me {
@@ -84,7 +86,7 @@ server {
 
         location /static/ {
 
-                alias /path/to/your/AirBnB_clone_v4/web_dynamic/static/;
+                alias /home/AirBnB_clone_v4/web_dynamic/static/;
 
         }
 }
