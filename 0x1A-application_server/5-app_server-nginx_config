@@ -1,67 +1,91 @@
 server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    root /var/www/html;
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        root /var/www/html;
 
-    index index.html index.htm index.nginx-debian.html;
+        index index.html index.htm index.nginx-debian.html;
 
-    server_name _;
+        server_name _;
 
-    # Redirect any requests to the root URL to your Gunicorn instance running on port 5003
-    location / {
-        proxy_pass http://127.0.0.1:5003;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
 
-    # Redirect location /redirect_me to YouTube
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-    }
+        #location / {
+        #        try_files $uri $uri/ =404;
+        #}
 
-    # Custom error page for 404 errors
-    error_page 404 /error_404.html;
+        # this is for task 3 in 0x0C-web_server
+        location /redirect_me {
+                return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        }
 
-    # Add custom header
-    add_header X-Served-By $hostname;
+        error_page 404 /error_404.html;
 
-    # Serve static files from web_static directory
-    location /hbnb_static {
-        alias /data/web_static/current/;
-    }
+        add_header X-Served-By $hostname; #Add custom header 0x0F-load_balancer TASK 0
 
-    # Proxy requests to /airbnb-onepage to Gunicorn instance on port 5000
-    location /airbnb-onepage/ {
-        proxy_pass http://127.0.0.1:5000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
+        location /hbnb_static {
 
-    # Proxy requests matching regex pattern to Gunicorn instance on port 5001
-    location ~ ^/airbnb-dynamic/number_odd_or_even/([0-9]+)$ {
-        proxy_pass http://127.0.0.1:5001/number_odd_or_even/$1;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
+                alias /data/web_static/current/;
 
-    # Proxy requests to /api/ to Gunicorn instance on port 5002
-    location /api/ {
-        proxy_pass http://127.0.0.1:5002;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
+        }
 
-    # Serve static assets for AirBnB clone web dynamic from this directory
-    location /static/ {
-        alias /home/ubuntu/AirBnB_clone_v4/web_dynamic/static/;
-        try_files $uri $uri/ =404;
-    }
+        location /airbnb-onepage/ {
+
+                proxy_pass http://127.0.0.1:5000;
+
+                proxy_set_header Host $host;
+
+                proxy_set_header X-Real-IP $remote_addr;
+
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+                proxy_set_header X-Forwarded-Proto $scheme;
+
+        }
+
+        location ~ ^/airbnb-dynamic/number_odd_or_even/([0-9]+)$ {
+
+                proxy_pass http://127.0.0.1:5001/number_odd_or_even/$1;
+
+                proxy_set_header Host $host;
+
+                proxy_set_header X-Real-IP $remote_addr;
+
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+                proxy_set_header X-Forwarded-Proto $scheme;
+
+        }
+
+        location /api/ {
+
+                proxy_pass http://127.0.0.1:5002;
+
+                proxy_set_header Host $host;
+
+                proxy_set_header X-Real-IP $remote_addr;
+
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+                proxy_set_header X-Forwarded-Proto $scheme;
+
+        }
+
+        location / {
+
+                proxy_pass http://127.0.0.1:5003;
+
+                proxy_set_header Host $host;
+
+                proxy_set_header X-Real-IP $remote_addr;
+
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+                proxy_set_header X-Forwarded-Proto $scheme;
+
+        }
+
+        location /static/ {
+
+                alias /home/AirBnB_clone_v4/web_dynamic/static/;
+
+        }
 }
