@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
 # Gracefully reload Gunicorn by sending the HUP signal to the master process
 # The HUP signal tells Gunicorn to reload the configuration and restart workers
 
