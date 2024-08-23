@@ -1,1 +1,6 @@
+#!/usr/bin/env bash
+# This script gracefully reloads Gunicorn to ensure the application is updated with no downtime
+
+# Find the Gunicorn master process and send it the SIGHUP signal for graceful reload
+pgrep -f 'gunicorn' | xargs -r -I {} kill -HUP {}
 
