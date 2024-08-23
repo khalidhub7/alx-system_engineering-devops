@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
-# Gracefully reload Gunicorn by sending the HUP signal to the master process
-# The HUP signal tells Gunicorn to reload the configuration and restart workers
+# Gracefully reloads Gunicorn by sending SIGHUP to the master process
 
 # Find the Gunicorn master process ID
-MASTER_PID=$(ps aux | grep 'gunicorn' | grep 'master' | awk '{print $2}')
+gunicorn_master_pid=$(pgrep -f 'gunicorn')
 
-# Send the HUP signal to the master process to reload Gunicorn gracefully
-if [ -n "$MASTER_PID" ]; then
-    kill -HUP "$MASTER_PID"
-    echo "Gunicorn master process (PID: $MASTER_PID) has been reloaded."
-else
-    echo "Gunicorn master process not found."
+if [ -z "$gunicorn_master_pid" ]; then
+    echo "No Gunicorn master process found."
+    exit 1
 fi
+
+# Reload Gunicorn gracefully using SIGHUP signal
+echo "Sending SIGHUP to Gunicorn master process (PID: $gunicorn_master_pid)..."
+kill -SIGHUP "$gunicorn_master_pid"
+
+echo "Graceful reload initiated for Gunicorn (PID: $gunicorn_master_pid)"
