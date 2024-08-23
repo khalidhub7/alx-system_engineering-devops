@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-# This script sends a SIGHUP signal to all processes with the name "gunicorn" without causing a service interruption
+# Gracefully reloads Gunicorn.
 
-pgrep gunicorn | xargs -r -I {} kill -HUP {}
+ps aux | grep gunicorn | awk '{ print $2 }' | xargs kill -HUP
