@@ -1,1 +1,14 @@
-Lets see
+#!/usr/bin/env bash
+# Find the Gunicorn master process for the correct port
+MASTER_PID=$(ps aux | grep '[g]unicorn --bind 0.0.0.0:5003' | awk '{print $2}')
+
+# Check if the master process is found
+if [ -z "$MASTER_PID" ]; then
+    echo "Gunicorn master process not found."
+    exit 1
+fi
+
+# Send the USR2 signal to the master process to reload workers
+kill -USR2 $MASTER_PID
+
+echo "Gunicorn workers are being reloaded."
