@@ -3,4 +3,3 @@
 
 # Find the Gunicorn master process and send it the SIGHUP signal for graceful reload
 pgrep -f 'gunicorn' | xargs -r -I {} kill -HUP {}
-
